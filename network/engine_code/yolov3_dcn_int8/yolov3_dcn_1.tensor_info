@@ -1,0 +1,4 @@
+image:4435968
+im_size_float32:8
+multinms:160000
+multiclass_nms_0_1:320

@@ -9,7 +9,7 @@ bool yolov3_dcn_1::build(TRTUniquePtr<IBuilder>& builder,TRTUniquePtr<INetworkDe
   ITensor** inputs,ITensor** outputs,int batch_size,DLRLogger& dlr_logger)
 {
   // Add Layers
-  mWeightsMap = load_weigths("yolov3_dcn_1.wts");
+  mWeightsMap = load_weigths("/usr/local/quake/datas/weights/yolov3_dcn.wts");
   // passby image(dlr_input), defined by image;
   // passby im_size_float32(dlr_input), defined by im_size_float32;
   auto res_2=network->addConstant(Dims2{3,2},mWeightsMap["const_2"]);

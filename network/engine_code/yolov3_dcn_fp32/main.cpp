@@ -45,7 +45,7 @@ bool test(std::shared_ptr<ICudaEngine> engine,int batch_size,bool show_detail)
   cpu_buffers[output_1]=malloc(batch_size*80*sizeof(float));
 
   // Stream obj for data feeding
-  DLRBatchStream data_stream("/data/DLRouter/test/DLRGen/Testset",batch_size,-1,"yolov3_dcn_1.tensor_info");
+  DLRBatchStream data_stream("/usr/local/quake/datas/testset/yolov3_dcn",batch_size,-1,"yolov3_dcn_1.tensor_info");
   while (data_stream.next()){
     void* data=data_stream.getBatch();
     int pos=0;
@@ -119,8 +119,8 @@ bool infer(std::shared_ptr<ICudaEngine> engine,int batch_size,int repeat_num,boo
   cpu_buffers[output_1]=malloc(batch_size*80*sizeof(float));
 
   // Copy input data from file to CPU buffers
-  FileUtils::read_file_to_buffer("Reference/image.bin",(float*)cpu_buffers[input_0],batch_size*1108992,show_detail);
-  FileUtils::read_file_to_buffer("Reference/im_size_float32.bin",(float*)cpu_buffers[input_1],batch_size*2,show_detail);
+  FileUtils::read_file_to_buffer("/usr/local/quake/datas/inference_datas/yolov3_dcn/image.bin",(float*)cpu_buffers[input_0],batch_size*1108992,show_detail);
+  FileUtils::read_file_to_buffer("/usr/local/quake/datas/inference_datas/yolov3_dcn/im_size_float32.bin",(float*)cpu_buffers[input_1],batch_size*2,show_detail);
 
   // Enqueue the task and record time
   std::chrono::steady_clock::time_point test_begin=std::chrono::steady_clock::now();
@@ -145,11 +145,11 @@ bool infer(std::shared_ptr<ICudaEngine> engine,int batch_size,int repeat_num,boo
   totalTime = std::chrono::duration_cast<std::chrono::microseconds>(test_end - test_begin).count();
 
   //Verify the outputs
-  failed_cnt=FileUtils::verify_buffer_with_file("multinms","Reference/multinms.bin",(float*)cpu_buffers[output_0],batch_size*40000,0.05*100,show_detail);
+  failed_cnt=FileUtils::verify_buffer_with_file("multinms","/usr/local/quake/datas/inference_datas/yolov3_dcn/multinms.bin",(float*)cpu_buffers[output_0],batch_size*40000,0.05*100,show_detail);
   if(failed_cnt>batch_size*40000*0.05)
     passed=false;
 
-  failed_cnt=FileUtils::verify_buffer_with_file("multiclass_nms_0_1","Reference/multiclass_nms_0_1.bin",(float*)cpu_buffers[output_1],batch_size*80,0.05*100,show_detail);
+  failed_cnt=FileUtils::verify_buffer_with_file("multiclass_nms_0_1","/usr/local/quake/datas/inference_datas/yolov3_dcn//multiclass_nms_0_1.bin",(float*)cpu_buffers[output_1],batch_size*80,0.05*100,show_detail);
   if(failed_cnt>batch_size*80*0.05)
     passed=false;
 
