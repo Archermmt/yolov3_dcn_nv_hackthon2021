@@ -11,7 +11,6 @@ import json
 import argparse
 parser=argparse.ArgumentParser(description='Coco eval')
 #parser.add_argument('--trt_path',default="../../network/engine_code/yolov3_dcn_fp32/yolov3_dcn_1.trt",type=str,help='engine file path')
-#parser.add_argument('--paddle_path',default="",type=str,help='paddle model file')
 parser.add_argument('--trt_path',default="",type=str,help='tensorrt engine file')
 parser.add_argument('--paddle_path',default="/usr/local/quake/datas/models/yolov3_dcn_paddle",type=str,help='paddle model file')
 args,unknown=parser.parse_known_args()
@@ -34,21 +33,21 @@ total_time = 0
 
 coco = COCO(annFile)
 #init engine/model
+trt_engines,stream=None,None
+paddle_executor=None
+program,feed_names,target_vars=None,None,None
+
 if args.trt_path:
     from trt_utils import *
     trt_engines,stream=init_trt_engine(args.trt_path)
-else:
-    trt_engines,stream=None,None
-if args.paddle_path:
+elif args.paddle_path:
     import paddle
     import paddle.fluid as fluid
     paddle_executor=fluid.Executor(fluid.CUDAPlace(0))
     if hasattr(paddle, 'enable_static'):
       paddle.enable_static()
     program,feed_names,target_vars=fluid.io.load_inference_model(dirname=args.paddle_path,executor=paddle_executor)
-else:
-    paddle_executor=None
-    program,feed_names,target_vars=None,None,None
+
 # 获取annids
 #annids = coco.getAnnIds()
 #info = coco.loadAnns(annids[0])

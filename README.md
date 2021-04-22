@@ -32,6 +32,19 @@ cmake -DCMAKE_INSTALL_PREFIX=/usr/local/quake ../ && make -j40 install
 待添加
 
 4.构建 && 测试性能
-A.FP32模型：cd network/yolov3_dcn_fp32 && make && ./yolov3_dcn
-A.FP16模型：cd network/yolov3_dcn_fp16 && make && ./yolov3_dcn
-A.INT8模型：cd network/yolov3_dcn_int8 && make && ./yolov3_dcn
+A.FP32模型：cd network/yolov3_dcn_fp32 && make && ./yolov3_dcn_1
+B.FP16模型：cd network/yolov3_dcn_fp16 && make && ./yolov3_dcn_1
+C.INT8模型：cd network/yolov3_dcn_int8 && make && ./yolov3_dcn_1
+D.python 加载测试：cd evaluate/simple_test && python test_engine.py --engine=YOUR_ENGINE_PATH
+  YOUR_ENGINE_PATH 为A，B，C过程中构建得到的.trt文件路径
+
+5.测试精度:
+cd evaluate && python coco_infer.py --trt_path=YOUR_TRT_PATH （测试tensorrt engine的精度）
+  YOUR_TRT_PATH 为4.A，4.B，4.C过程中构建得到的.trt文件路径
+
+cd evaluate && python coco_infer.py --paddle_path=YOUR_PADDLE_PATH （测试paddle model的精度）
+  YOUR_PADDLE_PATH 为paddle模型路径，yolov3_dcn模型在准备数据完成后保存在/usr/local/quake/datas/models/yolov3_dcn_paddle
+或:
+cd evaluate && python coco_infer.py（测试paddle model的精度）
+
+
