@@ -150,7 +150,6 @@ void yolo_box(cudaStream_t stream,
   _yolo_box_activate<<<Gr_act,Bl_act,0,stream>>>(input,anchors,buffer,scores, \
     batchsize,channel,height,width,
     anchor_num,boxes_num,class_num,conf_thresh,scale_x_y);
-  cudaStreamSynchronize(stream);
   //clip the boxes
   dim3 Bl_clip(CU2DBLOCK,CU2DBLOCK);
   dim3 Gr_clip(n_blocks(batchsize*boxes_num,CU2DBLOCK),n_blocks(4,CU2DBLOCK));
@@ -170,7 +169,6 @@ void yolo_box(cudaStream_t stream,
   _yolo_box_activateH<<<Gr_act,Bl_act,0,stream>>>(input,anchors,buffer,scores, \
     batchsize,channel,height,width,
     anchor_num,boxes_num,class_num,conf_thresh,scale_x_y);
-  cudaStreamSynchronize(stream);
   //clip the boxes
   dim3 Bl_clip(CU2DBLOCK,CU2DBLOCK);
   dim3 Gr_clip(n_blocks(batchsize*boxes_num,CU2DBLOCK),n_blocks(4,CU2DBLOCK));

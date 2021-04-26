@@ -32,7 +32,7 @@ cmake -DCMAKE_INSTALL_PREFIX=/usr/local/quake ../ && make -j40 install
 待添加
 
 4.构建 && 测试性能
-A.FP32模型：cd network/yolov3_dcn_fp32 && make && ./yolov3_dcn_1
+A.FP32模型：cd netwengine_code/ork/yolov3_dcn_fp32 && make && ./yolov3_dcn_1
 B.FP16模型：cd network/yolov3_dcn_fp16 && make && ./yolov3_dcn_1
 C.INT8模型：cd network/yolov3_dcn_int8 && make && ./yolov3_dcn_1
 D.python 加载测试：cd evaluate/simple_test && python test_engine.py --engine=YOUR_ENGINE_PATH

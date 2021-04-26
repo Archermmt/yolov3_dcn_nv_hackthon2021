@@ -121,7 +121,9 @@ for img_idx,elem in enumerate(imgs_ids):
             box_info['image_id'] = elem
             box_info['category_id'] = int(r[0])
             #x1,y1,x2,y2
-            box_info['bbox'] = [box_data[i] for i in range(2,6)]
+            bbox = [box_data[i] for i in range(2,6)]
+            bbox = [bbox[0],bbox[1],bbox[2]-bbox[0],bbox[3]-bbox[1]]
+            box_info['bbox']=bbox
             box_info['score'] = box_data[1]
             print("{}/{} th box info {}".format(img_idx,len(imgs_ids),box_info))
             ret_list.append(box_info)

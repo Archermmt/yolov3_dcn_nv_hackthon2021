@@ -5,3 +5,6 @@
 *.wts
 test_datas
 *QuakeGen*
+*.qdrep
+*.sqlite
+chobj
