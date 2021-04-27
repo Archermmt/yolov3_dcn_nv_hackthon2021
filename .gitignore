@@ -7,4 +7,6 @@ test_datas
 *QuakeGen*
 *.qdrep
 *.sqlite
+*.range
 chobj
+yolov3_dcn_1
