@@ -31,13 +31,24 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/quake/lib
 
 3.准备数据：
 待添加
+其中/usr/local/quake/datas/models/paddle_det.onnx为使用
+paddle2onnx 
+  --model_dir /usr/local/quake/datas/models/yolov3_r50vd_dcn_db_iouloss_obj365_pretrained_coco \
+  --model_filename __model__ \
+  --params_filename __params__ \
+  --save_file paddleDet_onnx/paddle_det.onnx \
+  --opset_version 11
+得到（需要pip instlal paddle2onnx）
 
 4.构建 && 测试性能
 A.FP32模型：cd network/engine_code/yolov3_dcn_fp32 && make && ./yolov3_dcn_1
 B.FP16模型：cd network/engine_code/yolov3_dcn_fp16 && make && ./yolov3_dcn_1
 C.INT8模型：cd network/engine_code/yolov3_dcn_int8 && make && ./yolov3_dcn_1
+注：A，B，C过程make之后执行yolov3_dcn_1之前需要删除yolov3_dcn_1.trt（如果存在），否则不会重新构建 engine。如果需要构建不同batch的engine，执行./yolov3_dcn_1 BATCH_SIZE
 D.python 加载测试：cd evaluate/simple_test && python test_engine.py --engine=YOUR_ENGINE_PATH
   YOUR_ENGINE_PATH 为A，B，C过程中构建得到的.trt文件路径
+E.Onnx构建engine（失败）：尝试使用导出的onnx+trt.OnnxParser进行构建，结果失败，Int64不支持，复现方式：
+  cd network/engine_code/parse_onnx && python build_from_onnx.py
 
 5.测试精度:
 cd evaluate && python coco_infer.py --trt_path=YOUR_TRT_PATH （测试tensorrt engine的精度）
@@ -47,3 +58,7 @@ cd evaluate && python coco_infer.py --paddle_path=YOUR_PADDLE_PATH （测试padd
   YOUR_PADDLE_PATH 为paddle模型路径，yolov3_dcn模型在准备数据完成后保存在/usr/local/quake/datas/models/yolov3_dcn_paddle
 或:
 cd evaluate && python coco_infer.py（测试paddle model的精度）
+
+6.bugs 复现：
+cd bug_codes/BUG_CASE && make && ./TEST
+BUG_CASE参照项目书中描述，TEST为make后得到的可执行程序，会根据BUG_CASE不同而不同
