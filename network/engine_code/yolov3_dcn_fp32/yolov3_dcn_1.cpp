@@ -692,7 +692,7 @@ bool yolov3_dcn_1::build(TRTUniquePtr<IBuilder>& builder,TRTUniquePtr<INetworkDe
   outputs[1]=res_194->getOutput(1);
   // Set configs
   builder->setMaxBatchSize(batch_size);
-  config->setMaxWorkspaceSize(101 << 20);
+  config->setMaxWorkspaceSize((batch_size*101) << 20);
   return true;
 }
 

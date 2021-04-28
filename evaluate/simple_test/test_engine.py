@@ -11,7 +11,7 @@ import argparse
 parser=argparse.ArgumentParser(description='tensorrt runtime test')
 parser.add_argument('--repeat_num',default=1000,type=int,help='Repeat number for testing')
 parser.add_argument('--batch_size',default=1,type=int,help='Batch size for testing')
-parser.add_argument('--engine',default="../../network/engine_code/yolov3_dcn_fp32/yolov3_dcn_1.trt",type=str,help='engine file path')
+parser.add_argument('--engine',default="../../network/engine_code/yolov3_dcn_int8/yolov3_dcn_1.trt",type=str,help='engine file path')
 ctypes.CDLL('/usr/local/quake/lib/libops_trt.so')
 TRT_LOGGER = trt.Logger(trt.Logger.WARNING)
 args,unknown=parser.parse_known_args()
@@ -85,22 +85,22 @@ if __name__=='__main__':
     'im_id':np.fromfile(os.path.join('/usr/local/quake/datas/inference_datas/yolov3_dcn','im_id.bin'),dtype='int64').reshape([1, 1])}
   #align reference datas
   if datas['im_id'].shape[0]!=args.batch_size:
-    repeat_data=np.repeat(datas['im_id'],1+datas['im_id'].shape[0]//args.batch_size,axis=0)
+    repeat_data=np.repeat(datas['im_id'],1+args.batch_size//datas['im_id'].shape[0],axis=0)
     datas['im_id']=repeat_data[:args.batch_size]
   if datas['im_size'].shape[0]!=args.batch_size:
-    repeat_data=np.repeat(datas['im_size'],1+datas['im_size'].shape[0]//args.batch_size,axis=0)
+    repeat_data=np.repeat(datas['im_size'],1+args.batch_size//datas['im_size'].shape[0],axis=0)
     datas['im_size']=repeat_data[:args.batch_size]
   if datas['image'].shape[0]!=args.batch_size:
-    repeat_data=np.repeat(datas['image'],1+datas['image'].shape[0]//args.batch_size,axis=0)
+    repeat_data=np.repeat(datas['image'],1+args.batch_size//datas['image'].shape[0],axis=0)
     datas['image']=repeat_data[:args.batch_size]
   if datas['multinms'].shape[0]!=args.batch_size:
-    repeat_data=np.repeat(datas['multinms'],1+datas['multinms'].shape[0]//args.batch_size,axis=0)
+    repeat_data=np.repeat(datas['multinms'],1+args.batch_size//datas['multinms'].shape[0],axis=0)
     datas['multinms']=repeat_data[:args.batch_size]
   if datas['multiclass_nms_0_num_int32'].shape[0]!=args.batch_size:
-    repeat_data=np.repeat(datas['multiclass_nms_0_num_int32'],1+datas['multiclass_nms_0_num_int32'].shape[0]//args.batch_size,axis=0)
+    repeat_data=np.repeat(datas['multiclass_nms_0_num_int32'],1+args.batch_size//datas['multiclass_nms_0_num_int32'].shape[0],axis=0)
     datas['multiclass_nms_0_num_int32']=repeat_data[:args.batch_size]
   if datas['im_id'].shape[0]!=args.batch_size:
-    repeat_data=np.repeat(datas['im_id'],1+datas['im_id'].shape[0]//args.batch_size,axis=0)
+    repeat_data=np.repeat(datas['im_id'],1+args.batch_size//datas['im_id'].shape[0],axis=0)
     datas['im_id']=repeat_data[:args.batch_size]
   ##############################    load reference datas    ##############################
 
