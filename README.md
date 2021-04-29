@@ -21,6 +21,9 @@ evaluate：精度测试使用的脚本
 bugs：可以复现TensorRT使用过程中的bug的代码
 
 测试引擎性能：
+0.环境：
+docker, 使用大赛提供的nvcr.io/nvidia/tensorrt:21.02-py3
+
 1.安装paddlepaddle：
 pip install paddlepaddle-gpu==2.0.2.post110 -f https://paddlepaddle.org.cn/whl/mkl/stable.html
 

@@ -545,6 +545,7 @@ bool test_1::build(TRTUniquePtr<IBuilder>& builder,TRTUniquePtr<INetworkDefiniti
   res_180->getOutput(0)->setName("Node_1032_power.power:0");
 
   //correct codes
+  /*
   auto res_181=network->addConstant(Dims2{1,1},mWeightsMap["const_181"]);
   assert(res_181 && "failed to build Node_2220.power (type:const)");
   res_181->getOutput(0)->setName("Node_2220.power:0");
@@ -552,13 +553,12 @@ bool test_1::build(TRTUniquePtr<IBuilder>& builder,TRTUniquePtr<INetworkDefiniti
   res_182->setReshapeDimensions(Dims{1,{1},{DimensionType::kCHANNEL}});
   assert(res_182 && "failed to build Node_2220.power_reshape (type:reshape)");
   res_182->getOutput(0)->setName("Node_2220.power_reshape:0");
-  
+  */
   //BUG : failed to build the network 
-  /* 
+   
   auto res_182=network->addConstant(Dims{1},mWeightsMap["const_180"]);
   assert(res_182 && "failed to build Node_2220.power_reshape (type:reshape)");
   res_182->getOutput(0)->setName("Node_2220.power_reshape:0");
-  */
 
   auto res_183=network->addGather(*res_135->getOutput(0),*inputs[0],0);
   assert(res_183 && "failed to build Node_31 (type:gather)");

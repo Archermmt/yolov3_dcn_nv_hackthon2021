@@ -405,23 +405,23 @@ bool fpn_1::build(TRTUniquePtr<IBuilder>& builder,TRTUniquePtr<INetworkDefinitio
   res_122->getOutput(0)->setName("Node_691:0");
 
   //correct process
+  /*
   ITensor* inputTensors_123[1] = {res_122->getOutput(0)};
   auto plugin_123=BILINEAR_UPSAMPLE_Plugin("bilinear_upsample",14,14,false);
   auto res_123=network->addPluginV2(inputTensors_123,1,plugin_123);
   assert(res_123 && "failed to build Node_704 (type:upsample)");
   res_123->getOutput(0)->setName("Node_704");
   outputs[1]=res_123->getOutput(0);
-
+  */
   //failed to check
-  /*
+  
   auto res_123=network->addResize(*res_122->getOutput(0));
   res_123->setResizeMode(ResizeMode::kLINEAR);
   res_123->setOutputDimensions(Dims3{256,14,14});
   assert(res_123 && "failed to build Node_704 (type:upsample)");
   res_123->getOutput(0)->setName("Node_704");
   outputs[1]=res_123->getOutput(0);
-  */
-
+  
   // Set configs
   builder->setMaxBatchSize(batch_size);
   config->setMaxWorkspaceSize(87 << 20);
