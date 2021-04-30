@@ -162,7 +162,7 @@ int main(int argc, char** argv){
   }
 
   //inference and test testset/QPS
-  bool passed=true;
+  bool passed=false;
 
   if(passed){
     print_center("<Start> Test yolov3_dcn_1 inference");

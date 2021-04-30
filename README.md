@@ -66,6 +66,8 @@ PaddleDetection源码：https://github.com/PaddlePaddle/PaddleDetection
 |tqdm|	4.60.0|
 |urllib3|	1.26.4|
 
+注：Paddle-gpu包编译复杂， datas/pkg下存放了与要求环境匹配的whl包
+
 ###算子库环境
 本项目中使用的模型优化代码和库需要进行单独编译才能使用，编译代码如下：
 ```shell
@@ -76,6 +78,10 @@ cmake -DCMAKE_INSTALL_PREFIX=/usr/local/quake ../ && \
 make -j40 install && \
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/quake/lib 
 ```
+
+###数据准备
+需要下载测试数据，并解压到/usr/local/quake/datas，测试数据路径为：
+使用（待添加）方式下载
 
 ##目录结构介绍
 |--benchmark  用于测试优化后模型性能的工具包\
@@ -95,13 +101,9 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/quake/lib
 |--ops_lib    比赛中使用到的算子库\
 |--readme.md  本项目的详细介绍
 
-
-
-
-
 ##onnx转换
 onnx转换需要安装paddle2onnx，本章节简单说明paddle的yolov3模型转onnx的操作,但该onnx模型无法通过trt的engine进行编译。
-```shell
+```shells
 #安装onnx2paddle
 pip instlal paddle2onnx
 ```
