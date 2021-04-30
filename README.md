@@ -1,6 +1,8 @@
 #yolov3_dcn_nv_hackthon2021
+
 ##简介
 本开源内容为 英伟达-阿里云异构计算TensorRT 加速AI推理Hackathon 2021 比赛项目，利用TensorRT对模型的推理过程进行加速
+
 ##使用模型
 选取yolov3模型作为原始模型，模型的结构可以直接从PaddleDetection上获取，非常方便。
 
@@ -8,7 +10,7 @@ PaddleDetection源码：https://github.com/PaddlePaddle/PaddleDetection
 
 模型配置文件：https://github.com/PaddlePaddle/PaddleDetection/blob/release/2.0-rc/configs/dcn/yolov3_r50vd_dcn_db_obj365_pretrained_coco.yml
 
-##名词测试
+##名词解释
 | 名称 | 解释 |
 | -----  | ----- |
 | Paddle   |  百度的原始深度学习框架 |
@@ -16,6 +18,7 @@ PaddleDetection源码：https://github.com/PaddlePaddle/PaddleDetection
 | Quake   |  本次参赛的框架，集成了模型编译和推理（包含TensorRT推理）   |
 
 ##环境依赖
+
 ###硬件环境
 注：本次比赛nvidia官方提供了开发用的基本docker镜像，镜像名称为nvcr.io/nvidia/tensorrt:21.02-py3
 
@@ -24,6 +27,7 @@ PaddleDetection源码：https://github.com/PaddlePaddle/PaddleDetection
 | GPU   |  Tesla T4|
 | CPU   |  Intel(R) Xeon(R) Platinum 8163 CPU @ 2.50GHz     |
 | 内存   |  DDR4 30G     |
+
 ###软件环境
 | 软件类型 | 版本 |
 | ----- | ----- |
@@ -34,6 +38,7 @@ PaddleDetection源码：https://github.com/PaddlePaddle/PaddleDetection
 | TensrRT | 7.2.2 |
 | Python | 3.8.5 |
 | gcc/g++ | 8.4.0 |
+
 ###python依赖包
 | 库名称 | 版本 |
 | ----- | ----- |
@@ -184,7 +189,7 @@ python eval.py --config ./configs/dcn/yolov3_r50vd_dcn_db_iouloss_obj365_pretrai
 | ----- | ----- |
 |-h, --help|	show this help message and exit|
 |-p｜--platform|	Test platform type, support Paddle or QuakeRT, default is Paddle	|
-|-m｜--model_dir |Test model path, default is ./model/yolov3	|
+|-m｜--model_dir |Test model path, default is /usr/local/quake/datas/benchmark/model	|
 |-b｜--batch |Test batch size, default is 1	|
 |-t｜--param_type |Inference data type, support fpr32 ｜ fp16 ｜ int8,default is fp32	|
 |-r｜--run_benchmark |run benchmark test, default is False	|

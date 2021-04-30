@@ -15,7 +15,7 @@ class infer_base(object):
         self.debug = debug
         self.param_type = param_type
 
-        self.dataDir = "./dataset/coco"
+        self.dataDir = "/usr/local/quake/datas/benchmark/dataset/coco"
         self.annFile = os.path.join(self.dataDir, "annotations/instances_val2017.json")
         self.gt_path = self.annFile
         self.dt_path = "QuakeGenBoxes.json"
@@ -94,8 +94,8 @@ class infer_paddle(infer_base):
             precision_mode = PrecisionType.Int8
             use_calib_mode = True
 
-        mode_path = os.path.join(self.model_dir,"__model__")
-        param_path = os.path.join(self.model_dir,"__params__")
+        mode_path = os.path.join(self.model_dir,"yolov3/__model__")
+        param_path = os.path.join(self.model_dir,"yolov3/__params__")
         config = Config(mode_path, param_path)
         config.enable_use_gpu(100, 0)
         config.switch_ir_optim(True)

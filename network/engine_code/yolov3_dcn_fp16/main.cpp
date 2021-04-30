@@ -98,7 +98,7 @@ int main(int argc, char** argv){
 
   if(!show_detail){
     batch_size=argc>1? atoi(argv[1]):1;
-    repeat_num=argc>2? atoi(argv[2]):1000;
+    repeat_num=argc>2? atoi(argv[2]):1;
   }
 
   //define the engine

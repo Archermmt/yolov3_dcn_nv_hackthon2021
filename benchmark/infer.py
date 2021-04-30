@@ -37,8 +37,8 @@ if __name__ == '__main__':
         "-m",
         "--model_dir",
         type = str,
-        default="./model/yolov3",
-        help="Test model path, default is ./model/yolov3.")
+        default="/usr/local/quake/datas/benchmark/model",
+        help="Test model path, default is /usr/local/quake/datas/benchmark/model.")
     parser.add_argument(
         "-b",
         "--batch",
