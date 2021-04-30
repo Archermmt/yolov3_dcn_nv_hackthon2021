@@ -2,6 +2,8 @@
 import pycuda.driver as cuda
 import pycuda.autoinit
 import numpy as np
+import tensorrt as trt
+import ctypes
 TRT_LOGGER = trt.Logger(trt.Logger.WARNING)
 ctypes.CDLL('/usr/local/quake/lib/libops_trt.so')
 
